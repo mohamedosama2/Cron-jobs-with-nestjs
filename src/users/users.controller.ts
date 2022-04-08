@@ -1,23 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private readonly usersService: UsersService,
-    private schedulerRegistry: SchedulerRegistry,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -26,9 +14,6 @@ export class UsersController {
 
   @Get()
   findAll() {
-    const job = this.schedulerRegistry.getCronJob('notification');
-    job.stop();
-    console.log(job.lastDate());
     return this.usersService.findAll();
   }
 

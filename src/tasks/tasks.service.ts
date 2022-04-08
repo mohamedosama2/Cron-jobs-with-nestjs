@@ -4,6 +4,9 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 @Injectable()
 export class TasksService {
   private readonly logger = new Logger(TasksService.name);
+  constructor() {
+    console.log('Initiated');
+  }
 
   @Cron('45 * * * * *', {
     name: 'notification',
